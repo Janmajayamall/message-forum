@@ -1,9 +1,28 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
+import PostList from './PostList.js';
+import {connect} from 'react-redux';
 
-const DashboardPage = () => (
+export const DashboardPage = (props) => (
+
   <div>
-    Dashboard page content
+    <Link to='/addpost'>Post something new</Link>
+    <div>
+      <h2>Posts</h2>
+      <div>
+        {props.posts.map((post)=>{
+          return (<PostList key={post.postID} post={post} />)
+        })}
+      </div>
+    </div>
   </div>
 );
 
-export default DashboardPage;
+const mapStateToProps = (state) =>{
+  return{
+    posts: state.posts
+  }
+}
+
+
+export default connect(mapStateToProps)(DashboardPage);
