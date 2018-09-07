@@ -38,7 +38,9 @@ export const PostSpecificPage = (props) =>{
                                 }}
                             />
             })}
-            <AddCommentPage postID={props.filteredPost.postID} />
+            { props.anyUser ? 
+                <AddCommentPage postID={props.filteredPost.postID} />
+                : <p></p>}
         </div>  
     );
 
@@ -50,7 +52,8 @@ const mapStateToProps = (state, props) =>{
     return {
         filteredPost : state.posts.find((post)=>post.postID === props.match.params.id),
         authID: state.auth.uid,
-        postComments: state.comments
+        postComments: state.comments,
+        anyUser: state.auth.anyUser
     }
 }
 

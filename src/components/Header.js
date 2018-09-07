@@ -1,16 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { startLogout } from '../actions/auth';
+import { startLogout, startLogin } from '../actions/auth';
 
-export const Header = ({ startLogout }) => (
+export const Header = (props) => (
   <header className="header">
     <div className="content-container">
       <div className="header__content">
         <Link className="header__title" to="/dashboard">
           <h1>Message Here</h1>
         </Link>
-        {/* <button className="button button--link" onClick={startLogout}>Logout</button> */}
+        { props.userPresent === false ? <button className="button button--link" onClick={props.startLogin}>Login</button>:
+        <button className="button button--link" onClick={props.startLogout}>Logout</button>  }
       </div>
       <div className="header__content">
         <p>Post Something</p>
@@ -19,8 +20,15 @@ export const Header = ({ startLogout }) => (
   </header>
 );
 
+const mapStateToProps = (state) => {
+  return{
+    userPresent: state.auth.anyUser
+  }
+}
+
 const mapDispatchToProps = (dispatch) => ({
-  startLogout: () => dispatch(startLogout())
+  startLogout: () => dispatch(startLogout()),
+  startLogin: () => dispatch(startLogin())
 });
 
-export default connect(undefined, mapDispatchToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

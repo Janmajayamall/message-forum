@@ -9,17 +9,19 @@ import PublicRoute from './PublicRoute';
 import PostPage from '../components/PostPage';
 import AddPost from '../components/AddPost';
 import EditPost from '../components/EditPost';
-import PostSpecificPage from '../components/PostSpecificPage'
+import PostSpecificPage from '../components/PostSpecificPage';
+import Header from './../components/Header.js'
 
 export const history = createHistory();
 
 const AppRouter = () => (
   <Router history={history}>
     <div>
+      <Header />
       <Switch>
-        <Route path="/" component={LoginPage} exact={true} />
+        <Route path="/" component={DashboardPage} exact={true} />
         <Route path="/dashboard" component={DashboardPage} exact = {true} />
-        <Route path="/addpost" component={AddPost} />
+        <PrivateRoute path="/addpost" component={AddPost} />
         <Route path="/editpost/:id" component={EditPost} />
         <Route path="/postspecificpage/:id/:commentID?" component={PostSpecificPage} />
         <Route component={NotFoundPage} />

@@ -9,7 +9,8 @@ export default class PostPage extends React.Component{
             postTitle:props.post ? props.post.postTitle:'',
             textArea:props.post ? props.post.textArea:'',
             createdAt:props.post ? props.post.createdAt: 0, 
-            editedAt: props.post ? props.post.editedAt: 0
+            editedAt: props.post ? props.post.editedAt: 0,
+            error: ""
         }
     }
     
@@ -44,7 +45,28 @@ export default class PostPage extends React.Component{
 
     onSubmit = (e) =>{
         e.preventDefault();
-
+        if (this.state.postTitle === "" && this.state.textArea !== "")  {
+            this.setState(()=> {
+                return{
+                    error:"Please give a title to the post"
+                }
+            })
+        }
+        else if (this.state.postTitle !== "" && this.state.textArea === "")  {
+            this.setState(()=> {
+                return{
+                    error:"Please write the body of the blog"
+                }
+            })
+        }
+        else if (this.state.postTitle === "" && this.state.textArea === "")  {
+            this.setState(()=> {
+                return{
+                    error:"Please give a title and write the body of the blog"
+                }
+            })
+        }
+        else {
         const stateValue = this.state;
 
         this.props.Submit(stateValue);
@@ -54,17 +76,18 @@ export default class PostPage extends React.Component{
                 textArea: '',
                 createdAt: 0,
                 editedAt: 0
-        }});
+        }});}
         }
 
     render(){
         return(
             <form onSubmit = {this.onSubmit}>
+                {this.state.error !== "" ? <p>{this.state.error}</p>: <p></p>}
                 <input placeholder='Add Title here'
                     value={this.state.postTitle}
                     onChange={this.postTitleChanged}
                 />
-                <textarea 
+                <textarea   
                 placeholder = 'Add Text Here'
                 value = {this.state.textArea}
                 onChange = {this.textAreaChanged}  />
