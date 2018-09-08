@@ -8,7 +8,7 @@ export const Header = (props) => (
     <div className="content-container">
       <div className="header__content">
         <Link className="header__title" to="/dashboard">
-          <h1>Message Here</h1>
+          <h1>Message_Forum</h1>
         </Link>
         { props.userPresent === false ? <button className="button button--link" onClick={props.startLogin}>Login</button>:
         <button className="button button--link" onClick={props.startLogout}>Logout</button>  }
