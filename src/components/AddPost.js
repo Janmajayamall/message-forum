@@ -6,7 +6,7 @@ import {startNewPost} from './../actions/post.js';
 
 export const AddPost = (props)=>{
     return(
-        <div>
+        <div className="content-container">
             <h1>Add New Post</h1>
             <PostPage Submit= {(post)=>{
                 const newPost = {

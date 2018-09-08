@@ -81,7 +81,7 @@ export default class PostPage extends React.Component{
 
     render(){
         return(
-            <form onSubmit = {this.onSubmit}>
+            <form className="form" onSubmit = {this.onSubmit}>
                 {this.state.error !== "" ? <p>{this.state.error}</p>: <p></p>}
                 <input placeholder='Add Title here'
                     value={this.state.postTitle}

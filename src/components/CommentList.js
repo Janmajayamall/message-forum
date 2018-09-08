@@ -44,7 +44,6 @@ export default class CommentList extends React.Component {
             <form onSubmit={this.editExistingComment}>
             <textarea value={this.state.editedTextArea} onChange={this.ontextAreaChange} />
             <button>Update Comment</button>
-            <button>Remove Comment</button>
             </form>
             }
         

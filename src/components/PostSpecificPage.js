@@ -10,7 +10,7 @@ import {startEditComment, startRemoveComment} from './../actions/postComment';
 export const PostSpecificPage = (props) =>{
 
     return (
-        <div>
+        <div className="content-container">
             {props.startSetComment(props.match.params.id)}
             <h1>{props.filteredPost.postTitle}</h1>
             <p>{props.filteredPost.textArea}</p>
@@ -18,7 +18,9 @@ export const PostSpecificPage = (props) =>{
             <h5>Last Edited At: {props.filteredPost.editedAt}</h5>
             {props.filteredPost.authID === props.authID ? <Link to={`/editpost/${props.filteredPost.postID}`} >Edit Post</Link> : <p></p>}
             {props.postComments.map((commentGiven)=>{
-                return <CommentList key={props.postComments.indexOf(commentGiven)} comment={commentGiven.comment}
+                return (
+                    <div key={props.postComments.indexOf(commentGiven)}>
+                    <CommentList  comment={commentGiven.comment}
                                 rightToEdit={commentGiven.authID === props.authID}
                                 postID={props.filteredPost.postID}
                                 commentID={commentGiven.commentID}
@@ -33,12 +35,13 @@ export const PostSpecificPage = (props) =>{
                                     props.startEditComment(commentID, editedCommentObject);
                                     props.history.push(`/postspecificpage/${props.filteredPost.postID}`);
                                 }}
-                                onRemoveComment={(commentID)=>{
-                                    props.startRemoveComment(commentID)
-                                }}
                             />
+                        <button onClick={()=>{
+                                    props.startRemoveComment(commentGiven.commentID)
+                                }}></button>
+                    </div>     )   
             })}
-            { props.anyUser ? 
+            { props.anyUser === true && props.match.params.commentID === undefined ? 
                 <AddCommentPage postID={props.filteredPost.postID} />
                 : <p></p>}
         </div>  
@@ -46,7 +49,12 @@ export const PostSpecificPage = (props) =>{
 
 
 
+
+
+
+
 }
+
 
 const mapStateToProps = (state, props) =>{
     return {
@@ -67,4 +75,3 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(PostSpecificPage);
-

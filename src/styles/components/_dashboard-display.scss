@@ -1,0 +1,24 @@
+.postList{
+    background: #D3D3D3;
+    margin-top: $s-size;
+    
+}
+
+
+.postList__display{
+    margin: $m-size $m-size;
+}
+
+
+.postList__title{
+    text-decoration: none;
+    font-size:$l-size;
+    color: black;
+
+}
+
+.postList__attributes{
+    display: flex;
+    flex-direction: row;    
+    justify-content: space-between;
+}
