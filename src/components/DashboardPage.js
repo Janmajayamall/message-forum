@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import PostList from './PostList.js';
 import {connect} from 'react-redux';
-import { constants } from 'os';
+import getFilteredPosts from './../selectors/getFilteredPosts';
 
 export const DashboardPage = (props) => (
 
@@ -11,8 +11,8 @@ export const DashboardPage = (props) => (
       <div>
         {props.posts.map((post)=>{
           return (
-            <div className="postList">
-            <PostList key={post.postID} post={post} />
+            <div key={post.postID} className="postList">
+            <PostList  post={post} />
             </div>)
         })}
       </div>
@@ -22,7 +22,7 @@ export const DashboardPage = (props) => (
 
 const mapStateToProps = (state) =>{
   return{
-    posts: state.posts,
+    posts: getFilteredPosts(state.posts, state.selectors)
   }
 }
 

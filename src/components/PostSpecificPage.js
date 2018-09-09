@@ -11,6 +11,8 @@ export const PostSpecificPage = (props) =>{
 
     return (
         <div className="content-container">
+         <div className="postspecificdetails__container">
+          <div className="postspecificdetails__container2">
             {props.startSetComment(props.match.params.id)}
             <h1>{props.filteredPost.postTitle}</h1>
             <p>{props.filteredPost.textArea}</p>
@@ -44,6 +46,8 @@ export const PostSpecificPage = (props) =>{
             { props.anyUser === true && props.match.params.commentID === undefined ? 
                 <AddCommentPage postID={props.filteredPost.postID} />
                 : <p></p>}
+          </div>
+         </div>
         </div>  
     );
 
