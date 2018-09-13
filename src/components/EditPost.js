@@ -7,7 +7,6 @@ export const EditPost = (props) =>{
     return(
         <div>
             <h1>Edit Post</h1>
-            {console.log(props.postToEdit)}
             {  props.authID === props.postToEdit.authID ? <PostPage post= {props.postToEdit} Submit= {(post)=>{
                                          const editedPost = {
                                              ...post}

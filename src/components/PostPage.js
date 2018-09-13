@@ -10,12 +10,13 @@ export default class PostPage extends React.Component{
             textArea:props.post ? props.post.textArea:'',
             createdAt:props.post ? props.post.createdAt: 0, 
             editedAt: props.post ? props.post.editedAt: 0,
+            tags: props.post ? props.post.tags: '',
             error: ""
         }
     }
     
     postTitleChanged = (e) =>{
-        const postNewTitle = e.target.value;
+        const postNewTitle = e.target.value.trim();
         this.setState(()=>{
             return{
                 postTitle: postNewTitle
@@ -40,6 +41,15 @@ export default class PostPage extends React.Component{
             }
             
         }) ;
+    }
+
+    onTagChanged = (e) => {
+        const newTags = e.target.value;
+        this.setState(()=> {
+            return{
+                tags: newTags
+            }
+        })
     }
 
 
@@ -67,6 +77,13 @@ export default class PostPage extends React.Component{
             })
         }
         else {
+        const tagState = this.state.tags.trim();  
+        this.setState(()=>{
+            return{
+                tags: tagState
+            }
+        })
+        console.log(this.state);
         const stateValue = this.state;
 
         this.props.Submit(stateValue);
@@ -75,7 +92,8 @@ export default class PostPage extends React.Component{
             return{
                 textArea: '',
                 createdAt: 0,
-                editedAt: 0
+                editedAt: 0,
+                tags: ""
         }});}
         }
 
@@ -91,6 +109,7 @@ export default class PostPage extends React.Component{
                 placeholder = 'Add Text Here'
                 value = {this.state.textArea}
                 onChange = {this.textAreaChanged}  />
+                <input placeholder='Related to?' onChange={this.onTagChanged} value={this.state.tags}/> 
                 <button>Submit</button>
             </form>
         );

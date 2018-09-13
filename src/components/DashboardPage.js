@@ -16,6 +16,8 @@ export const DashboardPage = (props) => (
             </div>)
         })}
       </div>
+
+
     </div>
   </div>
 );

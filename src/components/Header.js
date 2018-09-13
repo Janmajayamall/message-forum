@@ -10,7 +10,8 @@ export class Header extends React.Component {
     super(props);
 
     this.state={
-      searchText: ""
+      searchText: "",
+      tagSearch: ""
     }
   }
 
@@ -28,11 +29,30 @@ export class Header extends React.Component {
 
   }
 
-  search = (type,searchText) => {
+  onTagTextChange = (e) => {
+    const newTagText = e.target.value;
+
+    this.setState(()=>{
+      return{
+        tagSearch: newTagText
+      }
+    });
+
+    this.search("SET_TAG_SEARCH",newTagText);
+
+  }
+
+  search = (type,searchString) => {
     if(type==="SET_TEXT_SEARCH"){
       this.props.startSearch([
-       searchText,
-       ""
+       searchString.trim(),
+       this.state.tagSearch
+     ]);
+    }
+    else if(type==="SET_TAG_SEARCH"){
+      this.props.startSearch([
+       this.state.searchText,
+       searchString.trim()
      ]);
     }
    }
@@ -59,6 +79,7 @@ export class Header extends React.Component {
        </div>
        <form>
         <input placeholder="Search Post" value={this.state.searchText} onChange={this.onSearchTextChange} />
+        <input placeholder="Search Type" value={this.state.tagSearch} onChange={this.onTagTextChange} />
        </form>
       </div>
     </div>
